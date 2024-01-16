@@ -27,14 +27,13 @@ services:
     hostname: mysql
     restart: unless-stopped
     tty: true
-    ports:
-      - "3308:3306"
     volumes:
       - ./mysql:/var/lib/mysql
     environment:
-      MYSQL-DATABASE: laravel
-      MYSQL-ROOT-PASSWORD: 
-      MYSQL_ALLOW_EMPTY_PASSWORD: yes
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=blog
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=user
     networks:
       - laravel
   
@@ -47,4 +46,14 @@ services:
       - '8080:80'
     networks:
       - laravel
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - '8888:80'
+    environment:
+      - PMA_ARBITRARY=1
+      - PMA_HOST=mysql
+    depends_on:
+      - mysql
   
