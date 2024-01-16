@@ -16,4 +16,12 @@ class Post extends Model
         return $this->hasMany(Comment::class);
     }
 
+    public static function types(){
+        return [
+            self::TYPE_PRIVATE => 'private',
+            self::TYPE_PUBLIC => 'public',
+        ];
+    }
+
+
 }

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\api\v1;
 
+use App\Http\Resources\v1\CommentCollection;
+use App\Http\Resources\v1\CommentResource;
 use App\Http\Requests\StoreCommentRequest;
 use App\Http\Requests\UpdateCommentRequest;
 use App\Http\Controllers\Controller;
@@ -14,6 +16,7 @@ class CommentController extends Controller
      */
     public function index()
     {
+        return new CommentCollection(Comment::paginate());
         //
     }
 
@@ -38,7 +41,7 @@ class CommentController extends Controller
      */
     public function show(Comment $comment)
     {
-        //
+        return  new CommentResource($comment);
     }
 
     /**
