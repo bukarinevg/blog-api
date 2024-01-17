@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\api\v1;
 
-use App\Http\Requests\StorePostRequest;
+use App\Http\Requests\v1\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\v1\PostCollection;
