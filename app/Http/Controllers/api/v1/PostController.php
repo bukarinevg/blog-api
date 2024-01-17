@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\api\v1;
 
 use App\Http\Requests\v1\StorePostRequest;
-use App\Http\Requests\UpdatePostRequest;
+use App\Http\Requests\v1\UpdatePostRequest;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\v1\PostCollection;
 use App\Http\Resources\v1\PostResource;
@@ -54,6 +54,7 @@ class PostController extends Controller
      */
     public function update(UpdatePostRequest $request, Post $post)
     {
+        $post->update($request->all());
         //
     }
 
