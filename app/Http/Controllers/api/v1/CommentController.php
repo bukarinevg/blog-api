@@ -18,15 +18,9 @@ class CommentController extends Controller
      */
     public function index(Request $request)
     {
-        $filter = new CommentFilter();
-        //get query items from request
-        $queryItems = $filter->transform($request);// [[column, operator, value], [column, operator, value]]
-        if(!empty($queryItems)){
-            $comments = Comment::where($queryItems)->paginate();
-        }
-        else{
-            $comments = Comment::paginate();
-        }
+        
+        $filterParams = (new CommentFilter())->transform($request);// [[column, operator, value], [column, operator, value]]
+        $comments = Comment::where($filterParams)->paginate();
         return new CommentCollection($comments);
         //
     }

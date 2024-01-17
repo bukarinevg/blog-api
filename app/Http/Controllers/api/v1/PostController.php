@@ -18,15 +18,12 @@ class PostController extends Controller
      */
     public function index(Request $request)
     {
-        $filter = new PostFilter();
         //get query items from request
-        $queryItems = $filter->transform($request);// [[column, operator, value], [column, operator, value]]
-        if(!empty($queryItems)){
-            $posts = Post::where($queryItems)->paginate();
-        }
-        else{
-            $posts = Post::paginate();
-        }
+        $filterParams = (new PostFilter())->transform($request);// [[column, operator, value], [column, operator, value]]
+       
+        $getComents = $request->query('comments');
+        if($getComents) $posts = Post::where($filterParams)->with('comments')->paginate();
+        else $posts = Post::where($filterParams)->paginate();
         
         return new PostCollection($posts);
         // $posts = Post::where('title', '=', 'Nemo aliquid et sunt quibusdam.')->paginate();
@@ -34,19 +31,11 @@ class PostController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
     public function store(StorePostRequest $request)
     {
-        //
+        return new PostResource(Post::create($request->all()));
     }
 
     /**
@@ -54,15 +43,9 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        return  new PostResource($post);
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Post $post)
-    {
+        $getComments = request()->query('comments');
+        if($getComments) return new PostResource($post->load('comments'));
+        else return  new PostResource($post);
         //
     }
 

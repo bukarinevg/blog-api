@@ -9,6 +9,12 @@ class Post extends Model
 {
     use HasFactory;
 
+    protected $fillable= [
+        'title',
+        'content',
+        'type',
+    ];
+
     const TYPE_PRIVATE= 0;
     const TYPE_PUBLIC= 1;
 

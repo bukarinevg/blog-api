@@ -12,7 +12,7 @@ class BaseFilter{
         'eq' => '=',
         'neq' => '!=',
         'like' => 'LIKE',
-        'ilike' => 'not LIKE',
+        'nlike' => 'not LIKE',
         'gt' => '>',
         'gte' => '>=',
         'lt' => '<',
