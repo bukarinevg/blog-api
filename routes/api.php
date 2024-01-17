@@ -24,4 +24,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::group(['prefix' => 'v1', 'namespace' =>  'App\Http\Controllers\api\v1'], function(){
     Route::apiResource('posts', PostController::class); // PostController::class = 'App\Http\Controllers\api\v1\PostController'
     Route::apiResource('comments', CommentController::class);// CommentController::class = 'App\Http\Controllers\api\v1\CommentController'
+    Route::post('posts/bulk', [PostController::class, 'bulkStore']);
 });
