@@ -1,29 +1,16 @@
 <?php 
-
-namespace App\Services\v1;
+namespace App\Filters;
 
 use Illuminate\Http\Request;
-use App\Models\Post;
 
-class PostQuery{
-    //validation rules
-    protected $safeParams = [
-        'type' => ['eq'],
-        'title' => ['like', 'ilike', 'eq'],
-        'content' => ['like', 'ilike', 'eq'],
-        'slug' => ['like', 'ilike', 'eq'],
-        'publishedAt' => ['eq', 'gt', 'gte', 'lt', 'lte'],
-    ];
+class BaseFilter{
 
-    //map request params to database columns
-    protected $columnMap = [
-        'publishedAt' => 'published_at',
-        'userId' => 'user_id',
-    ];
-
-    //map request params to operators
+    protected $safeParams = [];
+    protected $columnMap = [];
+    
     protected $operatorMap = [
         'eq' => '=',
+        'neq' => '!=',
         'like' => 'LIKE',
         'ilike' => 'not LIKE',
         'gt' => '>',
@@ -60,4 +47,7 @@ class PostQuery{
         }
         return $paramArray;
     }
+
 }
+
+?>

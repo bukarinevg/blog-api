@@ -22,8 +22,6 @@ class PostResource extends JsonResource
             'content'=> $this->content,
             'type'=> Post::types()[$this->type],
             'publishedAt' => $this->published_at  instanceof \DateTime ?  $this->published_at->format('F d, Y') : null,
-
-
         ];
     }
 }

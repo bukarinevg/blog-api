@@ -7,7 +7,7 @@ use App\Http\Requests\UpdatePostRequest;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\v1\PostCollection;
 use App\Http\Resources\v1\PostResource;
-use App\Services\v1\PostQuery;
+use App\Filters\v1\PostFilter;
 use App\Models\Post;
 use Illuminate\Http\Request;
 
@@ -18,20 +18,18 @@ class PostController extends Controller
      */
     public function index(Request $request)
     {
-        $filter = new PostQuery();
+        $filter = new PostFilter();
+        //get query items from request
         $queryItems = $filter->transform($request);// [[column, operator, value], [column, operator, value]]
-
-        if($queryItems && count($queryItems) > 0){
-            
+        if(!empty($queryItems)){
             $posts = Post::where($queryItems)->paginate();
         }
         else{
             $posts = Post::paginate();
         }
-
-        // $posts = Post::where('title', '=', 'Nemo aliquid et sunt quibusdam.')->paginate();
         
         return new PostCollection($posts);
+        // $posts = Post::where('title', '=', 'Nemo aliquid et sunt quibusdam.')->paginate();
         // return Post::all();
     }
 

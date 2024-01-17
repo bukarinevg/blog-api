@@ -2,21 +2,32 @@
 
 namespace App\Http\Controllers\api\v1;
 
+use App\Filters\v1\CommentFilter;
 use App\Http\Resources\v1\CommentCollection;
 use App\Http\Resources\v1\CommentResource;
 use App\Http\Requests\StoreCommentRequest;
 use App\Http\Requests\UpdateCommentRequest;
 use App\Http\Controllers\Controller;
 use App\Models\Comment;
+use Illuminate\Http\Request;
 
 class CommentController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return new CommentCollection(Comment::paginate());
+        $filter = new CommentFilter();
+        //get query items from request
+        $queryItems = $filter->transform($request);// [[column, operator, value], [column, operator, value]]
+        if(!empty($queryItems)){
+            $comments = Comment::where($queryItems)->paginate();
+        }
+        else{
+            $comments = Comment::paginate();
+        }
+        return new CommentCollection($comments);
         //
     }
 
