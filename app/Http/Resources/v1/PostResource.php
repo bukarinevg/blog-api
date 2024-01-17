@@ -20,7 +20,7 @@ class PostResource extends JsonResource
             'title' => $this->title,
             'slug'=> $this->slug,
             'content'=> $this->content,
-            'type'=> Post::types()[$this->type],
+            'type'=> $this->type,
             'publishedAt' => $this->published_at  instanceof \DateTime ?  $this->published_at->format('F d, Y') : null,
         ];
     }
