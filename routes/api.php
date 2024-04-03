@@ -17,6 +17,12 @@ use App\Http\Controllers\AuthController;
 |
 */
 
+Route::get('/test', function () {
+    return response()->json(['message' => 'Test route']);
+});
+
+
+
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
@@ -41,3 +47,4 @@ Route::group(['prefix' => 'v1', 'namespace' =>  'App\Http\Controllers\api\v1',  
     Route::apiResource('comments', CommentController::class);// CommentController::class = 'App\Http\Controllers\api\v1\CommentController'
     Route::post('posts/bulk', [PostController::class, 'bulkStore']);
 });
+

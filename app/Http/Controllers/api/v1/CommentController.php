@@ -5,7 +5,7 @@ namespace App\Http\Controllers\api\v1;
 use App\Filters\v1\CommentFilter;
 use App\Http\Resources\v1\CommentCollection;
 use App\Http\Resources\v1\CommentResource;
-// use App\Http\Requests\StoreCommentRequest;
+use App\Http\Requests\v1\StoreCommentRequest;
 // use App\Http\Requests\UpdateCommentRequest;
 use App\Http\Controllers\Controller;
 use App\Models\Comment;
@@ -38,6 +38,7 @@ class CommentController extends Controller
      */
     public function store(StoreCommentRequest $request)
     {
+        return new CommentResource(Comment::create($request->all()));
         //
     }
 
@@ -60,10 +61,10 @@ class CommentController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateCommentRequest $request, Comment $comment)
-    {
-        //
-    }
+    // public function update(UpdateCommentRequest $request, Comment $comment)
+    // {
+    //     //
+    // }
 
     /**
      * Remove the specified resource from storage.
